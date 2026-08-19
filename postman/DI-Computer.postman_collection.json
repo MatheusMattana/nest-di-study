@@ -1,0 +1,328 @@
+{
+  "info": {
+    "name": "DI Computer",
+    "description": "NestJS dependency-injection study project simulating a computer: Power -> Cpu/Disk/Memory/Gpu/Network -> Motherboard -> OperatingSystem, all wired together in ComputerController.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "d1c0d1c0-0000-4000-8000-00000000c001"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Run default demo (GET /computer)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer", "host": ["{{baseUrl}}"], "path": ["computer"] }
+          }
+        },
+        {
+          "name": "Boot the system",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/boot", "host": ["{{baseUrl}}"], "path": ["computer", "boot"] }
+          }
+        },
+        {
+          "name": "Shutdown the system",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/shutdown", "host": ["{{baseUrl}}"], "path": ["computer", "shutdown"] }
+          }
+        },
+        {
+          "name": "POST check (motherboard)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/post", "host": ["{{baseUrl}}"], "path": ["computer", "post"] }
+          }
+        },
+        {
+          "name": "System status (requires boot)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/status", "host": ["{{baseUrl}}"], "path": ["computer", "status"] }
+          }
+        },
+        {
+          "name": "List processes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/processes", "host": ["{{baseUrl}}"], "path": ["computer", "processes"] }
+          }
+        },
+        {
+          "name": "Spawn process",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"shell\",\n  \"memorySize\": 32\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/computer/processes", "host": ["{{baseUrl}}"], "path": ["computer", "processes"] }
+          }
+        },
+        {
+          "name": "Kill process",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/processes/1", "host": ["{{baseUrl}}"], "path": ["computer", "processes", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CPU",
+      "item": [
+        {
+          "name": "Compute (a + b)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/cpu/compute?a=5&b=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "cpu", "compute"],
+              "query": [{ "key": "a", "value": "5" }, { "key": "b", "value": "10" }]
+            }
+          }
+        },
+        {
+          "name": "Multiply (a * b)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/cpu/multiply?a=6&b=7",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "cpu", "multiply"],
+              "query": [{ "key": "a", "value": "6" }, { "key": "b", "value": "7" }]
+            }
+          }
+        },
+        {
+          "name": "Divide (a / b)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/cpu/divide?a=10&b=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "cpu", "divide"],
+              "query": [{ "key": "a", "value": "10" }, { "key": "b", "value": "2" }]
+            }
+          }
+        },
+        {
+          "name": "Divide by zero (400 error demo)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/cpu/divide?a=1&b=0",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "cpu", "divide"],
+              "query": [{ "key": "a", "value": "1" }, { "key": "b", "value": "0" }]
+            }
+          }
+        },
+        {
+          "name": "Execute instruction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instruction\": \"MUL\",\n  \"a\": 6,\n  \"b\": 7\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/computer/cpu/execute", "host": ["{{baseUrl}}"], "path": ["computer", "cpu", "execute"] }
+          }
+        },
+        {
+          "name": "Benchmark",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/cpu/benchmark?iterations=1000",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "cpu", "benchmark"],
+              "query": [{ "key": "iterations", "value": "1000" }]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memory",
+      "item": [
+        {
+          "name": "Allocate block",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"size\": 256\n}" },
+            "url": { "raw": "{{baseUrl}}/computer/memory/allocate", "host": ["{{baseUrl}}"], "path": ["computer", "memory", "allocate"] }
+          }
+        },
+        {
+          "name": "Free block",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/memory/0", "host": ["{{baseUrl}}"], "path": ["computer", "memory", "0"] }
+          }
+        },
+        {
+          "name": "Memory status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/memory/status", "host": ["{{baseUrl}}"], "path": ["computer", "memory", "status"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disk",
+      "item": [
+        {
+          "name": "Get raw disk data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk", "host": ["{{baseUrl}}"], "path": ["computer", "disk"] }
+          }
+        },
+        {
+          "name": "List files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk/files", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "files"] }
+          }
+        },
+        {
+          "name": "Write file",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key\": \"notes.txt\",\n  \"data\": \"hello world\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/computer/disk/files", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "files"] }
+          }
+        },
+        {
+          "name": "Read file",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk/files/notes.txt", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "files", "notes.txt"] }
+          }
+        },
+        {
+          "name": "Delete file",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk/files/notes.txt", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "files", "notes.txt"] }
+          }
+        },
+        {
+          "name": "Format disk",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk/format", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "format"] }
+          }
+        },
+        {
+          "name": "Disk usage",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/disk/usage", "host": ["{{baseUrl}}"], "path": ["computer", "disk", "usage"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GPU",
+      "item": [
+        {
+          "name": "Render scene",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"sceneComplexity\": 12\n}" },
+            "url": { "raw": "{{baseUrl}}/computer/gpu/render", "host": ["{{baseUrl}}"], "path": ["computer", "gpu", "render"] }
+          }
+        },
+        {
+          "name": "GPU specs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/gpu/specs", "host": ["{{baseUrl}}"], "path": ["computer", "gpu", "specs"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Network",
+      "item": [
+        {
+          "name": "Connect",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ssid\": \"HomeWifi\"\n}" },
+            "url": { "raw": "{{baseUrl}}/computer/network/connect", "host": ["{{baseUrl}}"], "path": ["computer", "network", "connect"] }
+          }
+        },
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/computer/network/ping?host=example.com",
+              "host": ["{{baseUrl}}"],
+              "path": ["computer", "network", "ping"],
+              "query": [{ "key": "host", "value": "example.com" }]
+            }
+          }
+        },
+        {
+          "name": "Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/network/status", "host": ["{{baseUrl}}"], "path": ["computer", "network", "status"] }
+          }
+        },
+        {
+          "name": "Disconnect",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/computer/network/disconnect", "host": ["{{baseUrl}}"], "path": ["computer", "network", "disconnect"] }
+          }
+        }
+      ]
+    }
+  ]
+}

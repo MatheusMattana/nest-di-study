@@ -53,8 +53,12 @@ export class CpuService {
         return this.multiply(a, b);
       case 'DIV':
         return this.divide(a, b);
-      default:
-        throw new BadRequestException(`Unknown instruction: ${instruction}`);
+      default: {
+        const unknownInstruction = instruction as string;
+        throw new BadRequestException(
+          `Unknown instruction: ${unknownInstruction}`,
+        );
+      }
     }
   }
 

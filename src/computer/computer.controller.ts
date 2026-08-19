@@ -65,10 +65,7 @@ export class ComputerController {
 
   @Post('processes')
   spawnProcess(@Body() body: { name: string; memorySize?: number }) {
-    return this.operatingSystemService.spawnProcess(
-      body.name,
-      body.memorySize,
-    );
+    return this.operatingSystemService.spawnProcess(body.name, body.memorySize);
   }
 
   @Delete('processes/:pid')
@@ -106,7 +103,9 @@ export class ComputerController {
   cpuExecute(
     @Body() body: { instruction: CpuInstruction; a: number; b: number },
   ) {
-    return { result: this.cpuService.execute(body.instruction, body.a, body.b) };
+    return {
+      result: this.cpuService.execute(body.instruction, body.a, body.b),
+    };
   }
 
   @Get('cpu/benchmark')
